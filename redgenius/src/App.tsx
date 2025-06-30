@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import DashboardPage from './pages/DashboardPage'
 import WorkspacePage from './pages/WorkspacePage'
 import ReviewPage from './pages/ReviewPage'
+import HomePage from './pages/HomePage'
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       {/* <Header /> */}
 
       <Routes>
+        <Route path="/" element={<HomePage />} />
         {/* 默认路径'/'，显示工作台页面 */}
-        <Route path="/" element={<DashboardPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
 
         {/* 创作区路径'/workspace'，显示创作区页面 */}
         <Route path="/workspace" element={<WorkspacePage />} />
