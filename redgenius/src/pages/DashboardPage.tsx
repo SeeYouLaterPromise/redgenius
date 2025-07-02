@@ -6,7 +6,15 @@ function Header() {
   return (
     <header className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-red-500">红书智作 (RedGenius)</h1>
+        <div className="flex items-center gap-4">
+          <button
+            className="px-4 py-1 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 border border-gray-200 text-sm font-semibold transition"
+            onClick={() => window.location.href = '/'}
+          >
+            返回登录页
+          </button>
+          <h1 className="text-xl font-bold text-red-500 ml-2">红书智作 (RedGenius)</h1>
+        </div>
         <div className="flex items-center space-x-4">
           <span className="text-sm">欢迎您, 小美</span>
           <img
@@ -26,7 +34,7 @@ function DashboardPage() {
     {
       id: 1,
       category: '社会热点',
-      title: '为什么现在的年轻人都爱上了“新中式”穿搭？',
+      title: '为什么现在的年轻人都爱上了"新中式"穿搭？',
       source: '知乎热榜',
       color: 'bg-red-100 text-red-600',
     },

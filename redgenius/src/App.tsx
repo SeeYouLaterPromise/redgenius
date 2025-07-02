@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import DashboardPage from './pages/DashboardPage'
 import WorkspacePage from './pages/WorkspacePage'
 import ReviewPage from './pages/ReviewPage'
-import HomePage from './pages/HomePage'
+import HomePage from './pages/HomePage' // 新增这一行
 
 function App() {
   return (
@@ -11,8 +11,10 @@ function App() {
       {/* <Header /> */}
 
       <Routes>
+        {/* 首页路由，显示你设计的首页 */}
         <Route path="/" element={<HomePage />} />
-        {/* 默认路径'/'，显示工作台页面 */}
+
+        {/* 仪表盘页面改为 /dashboard */}
         <Route path="/dashboard" element={<DashboardPage />} />
 
         {/* 创作区路径'/workspace'，显示创作区页面 */}
