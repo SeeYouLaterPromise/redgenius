@@ -1,15 +1,16 @@
+$schema: 'mcp-agent.config.schema.json'
 execution_engine: asyncio
 
 mcp:
   servers:
     fetch:
-      command: uvx
+      command: 'uvx'
       args: ['mcp-server-fetch']
     filesystem:
-      command: npx
-      args: ['-y', '@modelcontextprotocol/server-filesystem', './']
+      command: 'npx'
+      args:
+        ['-y', '@modelcontextprotocol/server-filesystem', 'D:/black']
 
 openai:
-  # api_key: dp-your-deepseek-key # DeepSeek 提供的 Key
-  base_url: https://api.deepseek.com # ← 兼容 OpenAI 协议
-  default_model: deepseek-chat # 官方文档里的模型名
+  base_url: https://api.deepseek.com/v1
+  default_model: deepseek-chat
