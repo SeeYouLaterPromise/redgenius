@@ -1,0 +1,1 @@
+Thanks for xhs-toolkit's authors for generously openning their source code (https://github.com/aki66938/xhs-toolkit). In this project, `xhs-toolkit` is used for login and cookie management and automatic publishing.

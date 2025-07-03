@@ -1,2 +1,5 @@
 "backend/.env" 
 "black/mcp_agent.secrets.yaml"
+.idea
+.vscode
+__pycache__/
