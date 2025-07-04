@@ -2,11 +2,40 @@
 import asyncio
 from mcp_agent.agents.agent import Agent
 from mcp_agent.app import MCPApp
-from deepseek_llm import DeepSeekAugmentedLLM   # ← 用新类
+from black.agent.deepseek_llm import DeepSeekAugmentedLLM   # ← 用新类
 
+from mcp_agent.config import (
+    Settings,
+    LoggerSettings,
+    MCPSettings,
+    MCPServerSettings,
+    OpenAISettings,
+)
+
+settings = Settings(
+    execution_engine="asyncio",
+    logger=LoggerSettings(type="file", level="debug"),
+    mcp=MCPSettings(
+        servers={
+            "fetch": MCPServerSettings(
+                command="uvx",
+                args=["mcp-server-fetch"],
+            ),
+            "filesystem": MCPServerSettings(
+                command="npx",
+                args=["-y", "@modelcontextprotocol/server-filesystem", 'F:/yexin/redgenius/black'],
+            ),
+        }
+    ),
+    openai=OpenAISettings(
+        base_url="https://api.deepseek.com/v1",
+        api_key="sk-b461ffc208b441ecbd9002bc7d7de7af",
+        default_model="deepseek-chat",
+    ),
+)
 
 async def fetch_url(url: str):
-    app = MCPApp("quick_finder") #, settings=settings)
+    app = MCPApp("quick_finder", settings=settings)
 
     async with app.run():
         finder_agent = Agent(

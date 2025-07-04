@@ -9,7 +9,11 @@ mcp:
     filesystem:
       command: 'npx'
       args:
-        ['-y', '@modelcontextprotocol/server-filesystem', 'D:/black']
+        [
+          '-y',
+          '@modelcontextprotocol/server-filesystem',
+          'F:/yexin/redgenius/black',
+        ]
 
 openai:
   base_url: https://api.deepseek.com/v1

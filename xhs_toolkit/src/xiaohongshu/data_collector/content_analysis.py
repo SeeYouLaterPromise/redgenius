@@ -20,8 +20,8 @@ from .utils import (
     clean_number, wait_for_element, extract_text_safely, 
     find_element_by_selectors, wait_for_page_load, safe_click, scroll_to_element
 )
-from src.utils.logger import get_logger
-from src.data.storage_manager import get_storage_manager
+from ...utils.logger import get_logger
+from ...data.storage_manager import get_storage_manager
 
 logger = get_logger(__name__)
 

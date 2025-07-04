@@ -1,6 +1,13 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from ..auth.xhs_login import XHSLogin, AuthenticationError
+from ..publish.auto_publish import auto_publish, PublishRequest
+
+from fastapi import UploadFile, File, Form
+from typing import List
+import shutil
+import os
+import uuid
 
 app = FastAPI()
 
@@ -17,3 +24,56 @@ def get_xhs_cookies():
         return JSONResponse(content={"success": False, "msg": str(e)})
     except Exception as e:
         return JSONResponse(content={"success": False, "msg": f"未知错误: {str(e)}"})
+    
+# FastAPI 路由
+@app.post("/publish/path")
+async def publish_note(req: PublishRequest):
+    try:
+        result = await auto_publish(
+            title=req.title,
+            content=req.content,
+            topics=req.topics,
+            images=req.images,
+            videos=req.videos,
+            location=req.location
+        )
+        return {"message": "✅ 发布成功", "result": result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+
+@app.post("/publish/entity")
+async def upload_and_publish(
+    title: str = Form(...),
+    content: str = Form(...),
+    topics: List[str] = Form(...),
+    location: str = Form(""),
+    images: List[UploadFile] = File(...)
+):
+    try:
+        # 保存上传的文件
+        saved_paths = []
+        upload_dir = "uploaded_images"
+        os.makedirs(upload_dir, exist_ok=True)
+
+        for image in images:
+            filename = f"{uuid.uuid4().hex}_{image.filename}"
+            file_path = os.path.join(upload_dir, filename)
+            with open(file_path, "wb") as f:
+                shutil.copyfileobj(image.file, f)
+            saved_paths.append(file_path)
+
+        # 发布笔记
+        result = await auto_publish(
+            title=title,
+            content=content,
+            topics=topics,
+            images=saved_paths,
+            videos=None,
+            location=location
+        )
+
+        return {"message": "✅ 发布成功", "result": result}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

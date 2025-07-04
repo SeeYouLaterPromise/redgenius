@@ -19,9 +19,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from src.utils.logger import get_logger
+from ...utils.logger import get_logger
 from .utils import wait_for_fans_data, extract_text_safely
-from src.data.storage_manager import get_storage_manager
+from ...data.storage_manager import get_storage_manager
 
 logger = get_logger(__name__)
 

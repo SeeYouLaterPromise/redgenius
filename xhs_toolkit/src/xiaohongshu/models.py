@@ -11,7 +11,7 @@ from pydantic import BaseModel, field_validator
 try:
     from ..utils.text_utils import validate_note_content, parse_topics_string, parse_file_paths_string, smart_parse_file_paths
 except ImportError:
-    from src.utils.text_utils import validate_note_content, parse_topics_string, parse_file_paths_string, smart_parse_file_paths
+    from xhs_toolkit.src.utils.text_utils import validate_note_content, parse_topics_string, parse_file_paths_string, smart_parse_file_paths
 
 
 class XHSNote(BaseModel):
