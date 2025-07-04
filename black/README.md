@@ -13,7 +13,7 @@
 临时解决路径问题
 
 ```txt
-set PYTHONPATH=F:\yexin\redgenius\xhs_toolkit;%PYTHONPATH%
+set PYTHONPATH=E:\xiaohongshu\redgenius\xhs_toolkit;%PYTHONPATH%
 ```
 
 ```bash

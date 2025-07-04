@@ -12,7 +12,7 @@ mcp:
         [
           '-y',
           '@modelcontextprotocol/server-filesystem',
-          'F:/yexin/redgenius/black',
+          'E:/xiaohongshu/redgenius/black',
         ]
 
 openai:
