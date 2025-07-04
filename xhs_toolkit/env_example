@@ -1,0 +1,64 @@
+# 小红书MCP工具包环境变量配置
+
+# Chrome浏览器路径
+CHROME_PATH=C:\Program Files\Google\Chrome\Application\chrome.exe
+
+# ChromeDriver路径（可选，为空则使用系统PATH）
+WEBDRIVER_CHROME_DRIVER=C:\Users\yexin\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe
+
+# MCP服务器配置
+SERVER_HOST=0.0.0.0
+SERVER_PORT=8000
+
+# Cookies文件路径
+COOKIES_FILE=xhs_cookies.json
+
+# 日志配置
+LOG_LEVEL=INFO
+LOG_FILE=xhs_toolkit.log
+
+# 浏览器选项
+DISABLE_IMAGES=false
+DEBUG_MODE=false
+# 无头浏览器模式（true=启用无头模式，false=显示浏览器界面）
+HEADLESS=false
+
+# 超时设置（秒）
+TIMEOUT=30
+
+# ==================== 数据存储配置(暂不支持) ====================
+# 是否启用PostgreSQL数据库存储（false=仅使用CSV存储，true=同时使用PostgreSQL）
+# ENABLE_DATABASE=false
+
+# PostgreSQL数据库连接配置
+# DATABASE_URL=postgresql://username:password@localhost:5432/xhs_toolkit
+# DATABASE_HOST=localhost
+# DATABASE_PORT=5432
+# DATABASE_NAME=xhs_toolkit
+# DATABASE_USER=username
+# DATABASE_PASSWORD=password
+
+# CSV数据存储路径（本地存储始终启用）
+DATA_STORAGE_PATH=data
+
+# ==================== 定时任务配置 ====================
+# 是否启用自动数据采集
+ENABLE_AUTO_COLLECTION=true
+
+# 程序启动时是否立即执行一次数据采集
+RUN_ON_STARTUP=true
+
+# 定时采集计划（cron表达式格式：秒 分 时 日 月 星期）
+# 默认：每天凌晨1点执行数据采集
+COLLECTION_SCHEDULE=0 1 * * *
+
+# 采集任务配置
+# 是否采集仪表板数据
+COLLECT_DASHBOARD=true
+# 是否采集内容分析数据  
+COLLECT_CONTENT_ANALYSIS=true
+# 是否采集粉丝数据
+COLLECT_FANS=true
+
+# 定时任务时区设置
+TIMEZONE=Asia/Shanghai
