@@ -7,11 +7,11 @@ from xhs_toolkit.src.core.browser import ChromeDriverManager
 
 from xhs_toolkit.src.core.exceptions import AuthenticationError, handle_exception
 from xhs_toolkit.src.xiaohongshu.models import CRITICAL_CREATOR_COOKIES
+
 from typing import List, Dict, Any
 import json
 from pathlib import Path
 from datetime import datetime
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC

@@ -8,7 +8,8 @@ import json
 import time
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
+from selenium.webdriver.common.by import By
 
 from ..core.config import XHSConfig
 from ..core.browser import ChromeDriverManager
