@@ -45,6 +45,6 @@ class DeepSeekAugmentedLLM(AugmentedLLM):
         response = self.client.chat.completions.create(
             model=self.model,
             messages=self.history,  # Send entire conversation history
-            max_tokens=256,
+            max_tokens=2048,
         )
         return response.choices[0].message.content

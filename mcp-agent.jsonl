@@ -1,0 +1,154 @@
+{"level":"INFO","timestamp":"2025-07-04T20:20:45.626125","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T20:20:45.626880","namespace":"mcp_agent.extract_hotspot","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T20:20:45.626880","namespace":"mcp_agent.extract_hotspot","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"extract_hotspot","agent_name":"mcp_application_loop","session_id":"fe28490c-e85f-4c8e-875e-d7e6b48b747f"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T20:20:45.626880","namespace":"mcp_agent.agents.agent","message":"Initializing agent xhs_hotspot_summary..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:20:45.626880","namespace":"mcp_agent.agents.agent","message":"Agent xhs_hotspot_summary initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:20:54.682729","namespace":"mcp_agent.agents.agent","message":"Shutting down agent xhs_hotspot_summary..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:20:54.682729","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_hotspot_summary","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T20:20:54.682729","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_hotspot_summary","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T20:20:54.684730","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:20:54.684730","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T20:20:54.684730","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T20:20:55.188614","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_hotspot_summary","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T20:20:55.188614","namespace":"mcp_agent.agents.agent","message":"Agent xhs_hotspot_summary shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T20:20:55.188614","namespace":"mcp_agent.extract_hotspot","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"extract_hotspot","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T20:51:15.105618","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T20:51:15.106623","namespace":"mcp_agent.xhs_content_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T20:51:15.106683","namespace":"mcp_agent.xhs_content_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"xhs_content_generator","agent_name":"mcp_application_loop","session_id":"8b58d1b3-f988-4b53-bc9b-84dfe5712b69"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T20:51:15.106798","namespace":"mcp_agent.agents.agent","message":"Initializing agent xhs_content_generator..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:51:15.106798","namespace":"mcp_agent.agents.agent","message":"Agent xhs_content_generator initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:51:23.933181","namespace":"mcp_agent.agents.agent","message":"Shutting down agent xhs_content_generator..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:51:23.933181","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T20:51:23.933181","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T20:51:23.934186","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:51:23.935182","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T20:51:23.935182","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T20:51:24.442350","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T20:51:24.442350","namespace":"mcp_agent.agents.agent","message":"Agent xhs_content_generator shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T20:51:24.442350","namespace":"mcp_agent.xhs_content_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"xhs_content_generator","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T20:52:36.722123","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T20:52:36.722123","namespace":"mcp_agent.xhs_content_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T20:52:36.722123","namespace":"mcp_agent.xhs_content_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"xhs_content_generator","agent_name":"mcp_application_loop","session_id":"f07fd3cb-739c-462d-9421-04b818e6953b"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T20:52:36.722123","namespace":"mcp_agent.agents.agent","message":"Initializing agent xhs_content_generator..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:52:36.723124","namespace":"mcp_agent.agents.agent","message":"Agent xhs_content_generator initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:52:50.093898","namespace":"mcp_agent.agents.agent","message":"Shutting down agent xhs_content_generator..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:52:50.093898","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T20:52:50.093898","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T20:52:50.095898","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:52:50.095898","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T20:52:50.095898","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T20:52:50.595542","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T20:52:50.595542","namespace":"mcp_agent.agents.agent","message":"Agent xhs_content_generator shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T20:52:50.596045","namespace":"mcp_agent.xhs_content_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"xhs_content_generator","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T20:55:26.810707","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T20:55:26.810707","namespace":"mcp_agent.xhs_content_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T20:55:26.810707","namespace":"mcp_agent.xhs_content_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"xhs_content_generator","agent_name":"mcp_application_loop","session_id":"7e6990a0-6ce9-4861-9414-3cc58f2e75b8"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T20:55:26.811710","namespace":"mcp_agent.agents.agent","message":"Initializing agent xhs_content_generator..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:55:26.811710","namespace":"mcp_agent.agents.agent","message":"Agent xhs_content_generator initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:55:34.405334","namespace":"mcp_agent.agents.agent","message":"Shutting down agent xhs_content_generator..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:55:34.405334","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T20:55:34.405334","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T20:55:34.406334","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T20:55:34.407333","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T20:55:34.407333","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T20:55:34.921713","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T20:55:34.921713","namespace":"mcp_agent.agents.agent","message":"Agent xhs_content_generator shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T20:55:34.922326","namespace":"mcp_agent.xhs_content_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"xhs_content_generator","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T21:02:12.040729","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:02:12.040729","namespace":"mcp_agent.xhs_content_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T21:02:12.040729","namespace":"mcp_agent.xhs_content_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"xhs_content_generator","agent_name":"mcp_application_loop","session_id":"ee95e0ad-28be-4314-b1c4-04fcc9570fac"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T21:02:12.040729","namespace":"mcp_agent.agents.agent","message":"Initializing agent xhs_content_generator..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:02:12.041788","namespace":"mcp_agent.agents.agent","message":"Agent xhs_content_generator initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:02:26.055172","namespace":"mcp_agent.agents.agent","message":"Shutting down agent xhs_content_generator..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:02:26.055172","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T21:02:26.055172","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:02:26.057172","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:02:26.057172","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T21:02:26.057172","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:02:26.561266","namespace":"mcp_agent.mcp.mcp_aggregator.xhs_content_generator","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:02:26.561794","namespace":"mcp_agent.agents.agent","message":"Agent xhs_content_generator shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T21:02:26.561794","namespace":"mcp_agent.xhs_content_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"xhs_content_generator","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T21:15:00.291730","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:00.292147","namespace":"mcp_agent.html_cover_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:00.292147","namespace":"mcp_agent.html_cover_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"html_cover_generator","agent_name":"mcp_application_loop","session_id":"dacf1445-9180-42e5-90b9-b79e6e7fb9fa"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:00.292147","namespace":"mcp_agent.agents.agent","message":"Initializing agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:00.292737","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:00.501763","namespace":"mcp_agent.agents.agent","message":"Shutting down agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:00.501763","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T21:15:00.501763","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:00.504290","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:00.505293","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:00.505293","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:01.004584","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:01.004584","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:01.004584","namespace":"mcp_agent.html_cover_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"html_cover_generator","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T21:15:40.243836","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:40.243836","namespace":"mcp_agent.html_cover_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:40.243836","namespace":"mcp_agent.html_cover_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"html_cover_generator","agent_name":"mcp_application_loop","session_id":"aee7448f-17fc-42c8-b290-4bea79aaa75d"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:40.243836","namespace":"mcp_agent.agents.agent","message":"Initializing agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:40.243836","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:54.717861","namespace":"mcp_agent.agents.agent","message":"Shutting down agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:54.717861","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T21:15:54.717861","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:54.718960","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:54.719961","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:54.719961","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:55.223250","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:15:55.223250","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T21:15:55.223250","namespace":"mcp_agent.html_cover_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"html_cover_generator","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T21:19:02.225670","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:19:02.226672","namespace":"mcp_agent.html_cover_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T21:19:02.226672","namespace":"mcp_agent.html_cover_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"html_cover_generator","agent_name":"mcp_application_loop","session_id":"2dbfb276-b968-457b-a920-0be44a2f8cf9"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T21:19:02.226946","namespace":"mcp_agent.agents.agent","message":"Initializing agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:19:02.226946","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:19:45.168067","namespace":"mcp_agent.agents.agent","message":"Shutting down agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:19:45.168067","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T21:19:45.168067","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:19:45.169458","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:19:45.170388","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T21:19:45.170388","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:19:45.679827","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:19:45.679827","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T21:19:45.679827","namespace":"mcp_agent.html_cover_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"html_cover_generator","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T21:28:36.852234","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:28:36.853284","namespace":"mcp_agent.html_cover_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T21:28:36.853284","namespace":"mcp_agent.html_cover_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"html_cover_generator","agent_name":"mcp_application_loop","session_id":"ab2054f8-42e8-46d6-ac03-a84634cf773b"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T21:28:36.853284","namespace":"mcp_agent.agents.agent","message":"Initializing agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:28:36.853284","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:29:12.537226","namespace":"mcp_agent.agents.agent","message":"Shutting down agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:29:12.537226","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T21:29:12.537226","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:29:12.539225","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:29:12.540227","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T21:29:12.540227","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:29:13.054320","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:29:13.054320","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T21:29:13.054320","namespace":"mcp_agent.html_cover_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"html_cover_generator","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T21:33:44.629810","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:33:44.631059","namespace":"mcp_agent.html_cover_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T21:33:44.631059","namespace":"mcp_agent.html_cover_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"html_cover_generator","agent_name":"mcp_application_loop","session_id":"a3176f49-35bd-4af8-a282-e66efdc0ec8d"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T21:33:44.631059","namespace":"mcp_agent.agents.agent","message":"Initializing agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:33:44.631610","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:34:25.487044","namespace":"mcp_agent.agents.agent","message":"Shutting down agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:34:25.488044","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T21:34:25.488044","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:34:25.489535","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:34:25.490044","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T21:34:25.490044","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:34:25.995552","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:34:25.995552","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T21:34:25.995552","namespace":"mcp_agent.html_cover_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"html_cover_generator","agent_name":"mcp_application_loop"}}}
+{"level":"INFO","timestamp":"2025-07-04T21:35:46.799118","namespace":"mcp_agent.core.context","message":"Configuring logger with level: debug"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:35:46.799118","namespace":"mcp_agent.html_cover_generator","message":"Registering global workflow tasks with application instance."}
+{"level":"INFO","timestamp":"2025-07-04T21:35:46.799118","namespace":"mcp_agent.html_cover_generator","message":"MCPApp initialized","data":{"data":{"progress_action":"Running","target":"html_cover_generator","agent_name":"mcp_application_loop","session_id":"c09a059c-0651-4a13-9eed-eaf505b39b38"}}}
+{"level":"DEBUG","timestamp":"2025-07-04T21:35:46.799118","namespace":"mcp_agent.agents.agent","message":"Initializing agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:35:46.800118","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent initialized."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:36:27.592717","namespace":"mcp_agent.agents.agent","message":"Shutting down agent html_card_cover_agent..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:36:27.593717","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Decremented connection ref count to 0"}
+{"level":"INFO","timestamp":"2025-07-04T21:36:27.593717","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Last aggregator closing, shutting down all persistent connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:36:27.594715","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"DEBUG","timestamp":"2025-07-04T21:36:27.595802","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"MCPConnectionManager: shutting down all server tasks..."}
+{"level":"INFO","timestamp":"2025-07-04T21:36:27.595802","namespace":"mcp_agent.mcp.mcp_connection_manager","message":"Disconnecting all persistent server connections..."}
+{"level":"INFO","timestamp":"2025-07-04T21:36:28.096661","namespace":"mcp_agent.mcp.mcp_aggregator.html_card_cover_agent","message":"Connection manager successfully closed and removed from context"}
+{"level":"DEBUG","timestamp":"2025-07-04T21:36:28.097397","namespace":"mcp_agent.agents.agent","message":"Agent html_card_cover_agent shutdown."}
+{"level":"INFO","timestamp":"2025-07-04T21:36:28.097397","namespace":"mcp_agent.html_cover_generator","message":"MCPApp cleanup","data":{"data":{"progress_action":"Finished","target":"html_cover_generator","agent_name":"mcp_application_loop"}}}

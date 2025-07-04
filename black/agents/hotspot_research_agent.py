@@ -3,7 +3,7 @@ import asyncio
 import re
 from mcp_agent.app import MCPApp
 from mcp_agent.agents.agent import Agent
-from black.agent.deepseek_llm import DeepSeekAugmentedLLM
+from deepseek_llm import DeepSeekAugmentedLLM
 # 这里我们使用默认的LLM以便于演示
 
 # 初始化MCPApp，为我们的应用命名
