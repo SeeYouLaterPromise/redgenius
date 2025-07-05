@@ -2,6 +2,30 @@ import os
 import tempfile
 from pathlib import Path
 from playwright.async_api import async_playwright
+import re
+
+def clean_markdown(text: str) -> str:
+    """
+    清洗 AI 回复中的 Markdown 格式，如 **加粗**、`代码`、标题符号等。
+    """
+    # 去除加粗/斜体
+    text = re.sub(r"\*\*(.*?)\*\*", r"\1", text)  # **加粗**
+    text = re.sub(r"\*(.*?)\*", r"\1", text)      # *斜体*
+
+    # 去除标题符号（# 或 ## 等）
+    text = re.sub(r"^\s*#{1,6}\s*", "", text, flags=re.MULTILINE)
+
+    # 去除反引号
+    text = re.sub(r"`(.*?)`", r"\1", text)
+
+    # 去除列表前缀（-、*、1. 等）
+    text = re.sub(r"^\s*[-*+]\s+", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^\s*\d+\.\s+", "", text, flags=re.MULTILINE)
+
+    # 去除多余空行
+    text = re.sub(r"\n{2,}", "\n", text)
+
+    return text.strip()
 
 
 async def save_html_and_screenshot(html: str, output_dir="screenshots", filename="xhs_cover.png"):

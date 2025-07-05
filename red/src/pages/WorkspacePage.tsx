@@ -101,7 +101,7 @@ function WorkspacePage() {
       <header className="bg-white shadow-sm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <Link
-            to="/"
+            to="/dashboard"
             className="text-sm font-semibold text-gray-600 hover:text-red-500">
             ← 返回工作台
           </Link>

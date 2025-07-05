@@ -12,6 +12,7 @@ export default defineConfig({
       '/login': 'http://localhost:8000',
       '/publish': 'http://localhost:8000',
       '/fetch-url': 'http://localhost:8000',
+      '/summary-content': 'http://localhost:8000',
     },
   },
 })

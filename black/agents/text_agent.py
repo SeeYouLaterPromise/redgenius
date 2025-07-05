@@ -3,7 +3,7 @@ from mcp_agent.agents.agent import Agent
 from mcp_agent.app import MCPApp
 from black.agents.deepseek_llm import DeepSeekAugmentedLLM
 from black.agents.setting import settings 
-from black.agents.utils import load_from_txt
+from black.agents.utils import load_from_txt, clean_markdown
 import re
 import os
 
@@ -13,8 +13,8 @@ async def fetch_url(url: str) -> dict:
     async with app.run():
         finder_agent = Agent(
             name="finder",
-            instruction="You are an agent with filesystem + fetch access. Return the requested file or URL contents.",
-            server_names=["fetch", "filesystem"],
+            instruction="You are an agent with fetch access. Return the requested file or URL contents.",
+            server_names=["fetch"],
         )
 
         async with finder_agent:
@@ -24,14 +24,9 @@ async def fetch_url(url: str) -> dict:
                 message=f"获取网页内容：{url}，总结网页内容只要回复纯文本，不要出现markdown格式",
             )
 
-            highlight = await llm.generate_str(
-                message="提炼爆点从而能够发小红书。限制20字",
-            )
-
             return {
                 "url": url,
                 "summary": summary.strip(),
-                "highlight": highlight.strip()
             }
 
 
@@ -77,8 +72,13 @@ async def extract_hotspot(content: str):
                     f"请直接输出爆点内容，每个爆点单独成行。"
                 ),
             )
-            print(f"Result: {result}")
-            return result
+            print(f"Raw Result:\n{result}")
+
+            cleaned = clean_markdown(result)
+            print(f"Cleaned Result:\n{cleaned}")
+
+            lines = cleaned.split("\n")
+            return [line.strip() for line in lines if line.strip()]
 
 async def xhs_content_generator(hotspots: list[str]):
     app = MCPApp("xhs_content_generator", settings=settings)
@@ -87,7 +87,7 @@ async def xhs_content_generator(hotspots: list[str]):
     prompt_path = os.path.abspath(
         os.path.join(os.path.dirname(__file__), "prompt/xhs_content.json.txt")
     )
-    prompt_instruction = load_prompt_from_txt(prompt_path)
+    prompt_instruction = load_from_txt(prompt_path)
 
     async with app.run():
         finder_agent = Agent(
@@ -114,21 +114,18 @@ async def xhs_content_generator(hotspots: list[str]):
 
 
 if __name__ == "__main__":
-    # url = "http://www.cnu.cc/"
-    # asyncio.run(fetch_url(url))
-    # content1 = "今天写了publish端口, 更新了GitHub云端代码"
-    # content2 = "今天吃了襄阳牛肉面"
-    # result1 = asyncio.run(summary_content(content1, content2))
+
     result1 = "今天的工作和生活都过得充实而有条理。在技术方面，我完成了publish端口的开发工作，并将最新的代码更新同步到了GitHub云端仓库，这为项目的持续集成和团队协作打下了良好基础。生活上也有不错的体验，中午品尝了地道的襄阳牛肉面，浓郁的汤底和劲道的面条让人回味无穷。这种平衡工作与生活的节奏，既能保持高效产出，又能享受日常的小确幸，感觉非常满足。整体来看，今天既推进了项目进展，又照顾到了个人生活的愉悦感，算得上是张弛有度的一天。"
-    # 示例用法
+
     hotspot_str = """1. 💻 高效工作：完成publish端口开发+GitHub代码同步，团队协作更顺畅！  
     2. 🍜 舌尖幸福：襄阳牛肉面暴击！汤浓面韧，打工人的治愈时刻～  
     3. ⚖️ 工作生活完美平衡：代码写得好，牛肉面吃得香，这才是理想节奏！  
     4. 🚀 今日成就：项目进度+1，幸福感+10086，张弛有度真的爽！  
     5. 🌟 小确幸哲学：高效产出和美食治愈，我全都要！"""
 
-    lines = hotspot_str.strip().split("\n")
-    pattern = re.compile(r"^\s*\d+\.\s*(.+)")
-    parsed = [match.group(1).strip() for line in lines if (match := pattern.match(line))]
-    print(f"Parsed Hotspots: {parsed}")
-    asyncio.run(xhs_content_generator(parsed))
+
+    # asyncio.run(extract_hotspot(result1))
+    asyncio.run(xhs_content_generator(hotspot_str.split("\n")))
+
+
+    #  python -m black.agents.text_agent

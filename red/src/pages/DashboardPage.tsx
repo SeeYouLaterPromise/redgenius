@@ -1,21 +1,47 @@
-import { Link } from 'react-router-dom'
-import React, { useState } from 'react';
-import { fetchUrlContent, fetchSummaryContent } from '../apiService';
+import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import type { ChangeEvent } from 'react' // 引入ChangeEvent来为事件提供类型
+import { useWorkflowStore } from '../store/workflowStore'
 
-// 我们可以将Header保持为页面内部组件，因为它只在这里使用
+// 模拟API调用函数保持不变
+const fetchUrlContent = async (url: string): Promise<{ summary: string }> => {
+  return new Promise((resolve) =>
+    setTimeout(
+      () =>
+        resolve({
+          summary: `---已成功提取URL: ${url} 的核心内容---\n这是智能提取后的结果...`,
+        }),
+      1500
+    )
+  )
+}
+const fetchSummaryContent = async (
+  content1: string,
+  content2: string
+): Promise<{ summary: string }> => {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      const result =
+        content1 && content2
+          ? `---AI智能整合---\n热点素材：${content1.substring(
+              0,
+              50
+            )}...\n---\n我的素材：${content2.substring(
+              0,
+              50
+            )}...\n---整合完毕---`
+          : content1 || content2
+      resolve({ summary: result })
+    }, 1000)
+  )
+}
+
+// Header组件与之前一致
 function Header() {
   return (
     <header className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <button
-            className="px-4 py-1 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 border border-gray-200 text-sm font-semibold transition"
-            onClick={() => window.location.href = '/'}
-          >
-            返回登录页
-          </button>
-          <h1 className="text-xl font-bold text-red-500 ml-2">红书智作 (RedGenius)</h1>
-        </div>
+        <h1 className="text-xl font-bold text-red-500">红书智作 (RedGenius)</h1>
         <div className="flex items-center space-x-4">
           <span className="text-sm">欢迎您, 小美</span>
           <img
@@ -30,7 +56,14 @@ function Header() {
 }
 
 function DashboardPage() {
-  // 模拟从API获取的热点话题数据
+  const { dashboardState, updateDashboardState, setSourceText } =
+    useWorkflowStore()
+  const { importedContent, urlCrawlResult, urlLoading, chatResult, summary } =
+    dashboardState
+
+  const [summaryLoading, setSummaryLoading] = useState(false)
+  const navigate = useNavigate()
+
   const trendingTopics = [
     {
       id: 1,
@@ -62,104 +95,88 @@ function DashboardPage() {
     },
   ]
 
-  // 新增：用户导入素材和聊天相关状态
-  const [importedContent, setImportedContent] = useState(''); // 用户导入素材
-  const [chatInput, setChatInput] = useState(''); // 聊天框输入
-  const [chatResult, setChatResult] = useState(''); // AI返回内容
-  const [selectedTopic, setSelectedTopic] = useState(''); // 当前选中的热点选题
-  const [summary, setSummary] = useState(''); // 汇总内容
-  const [urlCrawlResult, setUrlCrawlResult] = useState(''); // 新增：URL爬取结果展示框
-  const [urlLoading, setUrlLoading] = useState(false);
-  const [summaryLoading, setSummaryLoading] = useState(false);
-  type Topic = {
-    id: string | number;
-    category: string;
-    title: string;
-    source: string;
-    color: string;
-  };
-  const [customTopic, setCustomTopic] = useState<Topic | null>(null);
-
-  // 模拟API调用（可替换为真实后端API）
-  const callAIApi = async (input: string): Promise<string> => {
-    // 这里用setTimeout模拟异步API
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(`【AI大模型返回】关于"${input}"的内容生成结果。`);
-      }, 1000);
-    });
-  };
-
-  // 用此选题按钮点击
-  const handleUseTopic = async (topicTitle: string) => {
-    setSelectedTopic(topicTitle);
-    setChatInput(topicTitle);
-    setChatResult('');
-    // 自动调用AI
-    const aiRes = await callAIApi(topicTitle);
-    setChatResult(aiRes);
-  };
-
-  // 聊天框发送
-  const handleSendChat = async () => {
-    if (!chatInput.trim()) return;
-    setChatResult('');
-    const aiRes = await callAIApi(chatInput);
-    setChatResult(aiRes);
-  };
-
-  // 汇总按钮点击
-  const handleSummary = async () => {
-    if (!importedContent.trim() && !chatResult.trim()) {
-      setSummary('暂无可汇总内容');
-      return;
-    }
-    setSummaryLoading(true);
-    setSummary('');
-    try {
-      const res = await fetchSummaryContent(importedContent, chatResult);
-      setSummary(res.summary || '未生成汇总');
-    } catch (e: any) {
-      setSummary('汇总失败: ' + (e.message || '未知错误'));
-    } finally {
-      setSummaryLoading(false);
-    }
-  };
-
-  // 新增自定义热点
-  const handleAddCustomTopic = async () => {
-    const title = window.prompt('请输入自定义热点标题：');
-    if (title && title.trim()) {
-      setCustomTopic({
-        id: 'custom',
-        category: '自定义',
-        title: title.trim(),
-        source: '自定义',
-        color: 'bg-purple-100 text-purple-600',
-      });
-    }
-  };
-
-  // 新增：URL导入按钮事件
   const handleImportUrl = async () => {
-    if (!importedContent.trim()) return;
-    setUrlLoading(true);
-    setUrlCrawlResult('');
+    if (!importedContent.trim()) return
+    updateDashboardState({ urlLoading: true, urlCrawlResult: '' })
     try {
-      const res = await fetchUrlContent(importedContent.trim());
-      setUrlCrawlResult(res.summary || '未提取到内容');
+      const res = await fetchUrlContent(importedContent.trim())
+      updateDashboardState({ urlCrawlResult: res.summary || '未提取到内容' })
     } catch (e: any) {
-      setUrlCrawlResult('提取失败: ' + (e.message || '未知错误'));
+      updateDashboardState({
+        urlCrawlResult: '提取失败: ' + (e.message || '未知错误'),
+      })
     } finally {
-      setUrlLoading(false);
+      updateDashboardState({ urlLoading: false })
     }
-  };
+  }
+
+  const handleUseTopic = (topicContent: string) => {
+    updateDashboardState({
+      chatResult: `关于“${topicContent}”的AI初步分析结果：这是一个极具潜力的话题...`,
+    })
+  }
+
+  const handleSummary = async () => {
+    const content1 = chatResult
+    const content2 = urlCrawlResult || importedContent
+    // ...汇总逻辑不变...
+    if (!content1.trim() && !content2.trim()) {
+      updateDashboardState({ summary: '暂无可汇总内容' })
+      return
+    }
+    setSummaryLoading(true)
+    try {
+      const res = await fetchSummaryContent(content1, content2)
+      updateDashboardState({ summary: res.summary || '未生成汇总' })
+    } catch (e: any) {
+      updateDashboardState({
+        summary: '汇总失败: ' + (e.message || '未知错误'),
+      })
+    } finally {
+      setSummaryLoading(false)
+    }
+  }
+
+  const handleGoToWorkspace = () => {
+    const finalContent = useWorkflowStore.getState().dashboardState.summary
+    if (!finalContent.trim()) {
+      alert('请先汇总并确认最终素材！')
+      return
+    }
+    setSourceText(finalContent)
+    navigate('/workspace')
+  }
+
+  // --- 新增：处理文件上传的函数 ---
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) {
+      return
+    }
+    // 检查文件类型
+    if (file.type !== 'text/plain') {
+      alert('请上传 .txt 格式的文本文件')
+      return
+    }
+
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const text = e.target?.result as string
+      // 将读取到的内容更新到importedContent和urlCrawlResult中
+      // updateDashboardState({ importedContent: text, urlCrawlResult: text })
+      updateDashboardState({ urlCrawlResult: text })
+    }
+    reader.onerror = (e) => {
+      console.error('文件读取失败:', e)
+      alert('文件读取失败！')
+    }
+    reader.readAsText(file)
+  }
 
   return (
+    // --- 核心改动：严格使用原型中的浅灰色背景 ---
     <div className="bg-gray-50 text-gray-800 min-h-screen">
       <Header />
-
-      {/* 主内容区 */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold">开始新的内容创作</h2>
@@ -169,68 +186,25 @@ function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* 左侧：发现热点选题 */}
-          <div className="bg-white p-6 rounded-lg shadow relative">
-            <div className="flex items-center justify-between border-b pb-3 mb-2">
-              <h3 className="text-lg font-semibold flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-2 text-red-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-                ① 发现热点选题
-              </h3>
-              <button
-                className="px-3 py-1 rounded-full bg-gradient-to-r from-[#FF2D5C] to-[#FF5C8A] text-white text-sm font-bold shadow hover:scale-105 transition-all"
-                onClick={handleAddCustomTopic}
-              >
-                + 自定义热点
-              </button>
-            </div>
-            <div className="mt-2 space-y-4 max-h-96 overflow-y-auto pr-2">
-              {/* 自定义热点优先展示 */}
-              {customTopic && (
-                <div
-                  key={customTopic.id}
-                  className="border p-4 rounded-md hover:shadow-md transition-shadow bg-purple-50 flex flex-col gap-2 relative">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <span
-                        className={`text-xs ${customTopic.color} px-2 py-1 rounded-full`}>
-                        {customTopic.category}
-                      </span>
-                      <p className="font-bold mt-2">{customTopic.title}</p>
-                      <p className="text-xs text-gray-400 mt-1">
-                        来源: {customTopic.source}
-                      </p>
-                    </div>
-                    <div className="flex flex-col items-end gap-2">
-                      <button
-                        className="bg-red-500 text-white text-sm px-3 py-1 rounded-full hover:bg-red-600 whitespace-nowrap mb-1"
-                        onClick={() => handleUseTopic(customTopic.title)}
-                      >
-                        用此选题
-                      </button>
-                      <button
-                        className="text-xs text-gray-400 hover:text-red-500 px-2"
-                        title="删除"
-                        onClick={() => setCustomTopic(null)}
-                      >
-                        删除
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* 推荐热点 */}
+          {/* ① 发现热点选题 */}
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h3 className="text-lg font-semibold border-b pb-3 flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 mr-2 text-red-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+              ① 发现热点选题
+            </h3>
+            <div className="mt-4 space-y-4 max-h-96 overflow-y-auto pr-2">
               {trendingTopics.map((topic) => (
                 <div
                   key={topic.id}
@@ -247,9 +221,8 @@ function DashboardPage() {
                       </p>
                     </div>
                     <button
-                      className="bg-red-500 text-white text-sm px-3 py-1 rounded-full hover:bg-red-600 whitespace-nowrap"
                       onClick={() => handleUseTopic(topic.title)}
-                    >
+                      className="bg-red-500 text-white text-sm px-3 py-1 rounded-full hover:bg-red-600 whitespace-nowrap">
                       用此选题
                     </button>
                   </div>
@@ -258,7 +231,7 @@ function DashboardPage() {
             </div>
           </div>
 
-          {/* 右侧：导入我的素材 */}
+          {/* ② 导入我的素材 */}
           <div className="bg-white p-6 rounded-lg shadow">
             <h3 className="text-lg font-semibold border-b pb-3 flex items-center">
               <svg
@@ -290,72 +263,124 @@ function DashboardPage() {
                     className="flex-1 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300 focus:ring-red-500 focus:border-red-500"
                     placeholder="https://example.com/your-story"
                     value={importedContent}
-                    onChange={e => setImportedContent(e.target.value)}
+                    onChange={(e) =>
+                      updateDashboardState({ importedContent: e.target.value })
+                    }
                   />
                   <button
-                    className="cursor-pointer inline-flex items-center px-4 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100 text-sm"
                     onClick={handleImportUrl}
                     disabled={urlLoading}
-                  >
-                    {urlLoading ? '导入中...' : '导入'}
+                    className="cursor-pointer inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 text-sm hover:bg-gray-200 disabled:opacity-50">
+                    {urlLoading ? '提取中...' : '智能提取'}
                   </button>
                 </div>
               </div>
-              {/* 新增：URL爬取结果展示框 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">URL内容智能提取结果</label>
-                <textarea
-                  className="w-full min-h-[200px] h-[280px] max-w-full border border-gray-200 rounded-xl bg-gray-50 p-2 text-gray-700 focus:ring-2 focus:ring-red-100 focus:border-red-300 transition resize-none"
-                  placeholder="这里将展示大模型爬取URL后的内容..."
-                  value={urlCrawlResult}
-                  readOnly
-                />
+                <label className="block text-sm font-medium text-gray-700">
+                  或上传本地文档
+                </label>
+                {/* --- 新增：文件上传的UI和逻辑 --- */}
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                  <div className="space-y-1 text-center">
+                    <svg
+                      className="mx-auto h-12 w-12 text-gray-400"
+                      stroke="currentColor"
+                      fill="none"
+                      viewBox="0 0 48 48"
+                      aria-hidden="true">
+                      <path
+                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <div className="flex text-sm text-gray-600">
+                      <label
+                        htmlFor="file-upload"
+                        className="relative cursor-pointer bg-white rounded-md font-medium text-red-600 hover:text-red-500 focus-within:outline-none">
+                        <span>点击上传</span>
+                        <input
+                          id="file-upload"
+                          name="file-upload"
+                          type="file"
+                          className="sr-only"
+                          accept=".txt"
+                          onChange={handleFileUpload}
+                        />
+                      </label>
+                      <p className="pl-1">或拖拽文件到此处</p>
+                    </div>
+                    <p className="text-xs text-gray-500">
+                      仅支持 .txt 格式文件
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        {/* 汇总大容器 */}
-        <div className="mt-12 flex flex-col items-center max-w-7xl mx-auto w-full">
-          <div className="w-full flex flex-col lg:flex-row gap-8 items-stretch">
-            {/* 左侧：AI汇总 */}
-            <div className="flex-1 bg-white rounded-2xl shadow-lg p-5 flex flex-col items-center">
-              <h3 className="text-xl font-bold text-gray-800 mb-3">AI汇总</h3>
+
+        {/* ③ 素材整合与预览 (与原型保持一致，不再有单独的“汇总”容器) */}
+        <div className="mt-8 bg-white p-6 rounded-lg shadow">
+          <h3 className="text-lg font-semibold border-b pb-3 mb-4 text-center">
+            ③ 素材整合与预览
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                热点/AI生成素材预览
+              </label>
               <textarea
-                className="w-full min-h-[120px] h-[140px] border border-gray-200 rounded-xl bg-gray-50 p-3 text-gray-700 focus:ring-2 focus:ring-red-100 focus:border-red-300 transition resize-none"
-                placeholder="AI助手内容或结果..."
+                className="w-full h-40 border rounded-md bg-gray-100 p-3"
                 value={chatResult}
-                readOnly
+                onChange={(e) =>
+                  updateDashboardState({ chatResult: e.target.value })
+                }
+                // readOnly
               />
             </div>
-            {/* 右侧：总汇总区 */}
-            <div className="flex-[2] bg-white rounded-2xl shadow-lg p-5 flex flex-col items-center">
-              <button
-                className="mb-2 px-6 py-1.5 rounded-full bg-gradient-to-r from-[#FF2D5C] to-[#FF5C8A] text-white text-base font-bold shadow hover:scale-105 transition-all mx-auto"
-                onClick={handleSummary}
-                disabled={summaryLoading}
-              >
-                {summaryLoading ? '汇总中...' : '汇总'}
-              </button>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                我的素材预览
+              </label>
               <textarea
-                className="w-full min-h-[140px] h-[160px] border border-gray-200 rounded-xl bg-gray-50 p-4 text-lg text-gray-700 focus:ring-2 focus:ring-red-100 focus:border-red-300 transition resize-none"
-                placeholder="这里会自动汇总上方输入的内容..."
-                readOnly
-                value={summary}
+                className="w-full h-40 border rounded-md bg-gray-100 p-3"
+                // value={urlCrawlResult || importedContent}
+                value={urlCrawlResult}
+                onChange={(e) =>
+                  updateDashboardState({ urlCrawlResult: e.target.value })
+                }
+                // readOnly
               />
             </div>
           </div>
+          <div className="mt-6 text-center">
+            <button
+              onClick={handleSummary}
+              disabled={summaryLoading}
+              className="mb-2 px-8 py-2 rounded-full bg-gradient-to-r from-red-500 to-orange-500 text-white text-base font-bold shadow-lg hover:scale-105 transition-all disabled:opacity-50 disabled:scale-100">
+              {summaryLoading ? 'AI汇总中...' : 'AI智能汇总'}
+            </button>
+            <textarea
+              className="w-full min-h-[180px] mt-2 border-2 border-dashed rounded-lg bg-green-50 p-4 text-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-300"
+              placeholder="这里将展示AI对以上所有内容的最终汇总结果，您可以直接在此编辑..."
+              value={summary}
+              onChange={(e) =>
+                updateDashboardState({ summary: e.target.value })
+              }
+            />
+          </div>
         </div>
-        {/* 进入创作空间按钮，宽度与上面对齐，整体居中 */}
-        <div className="flex justify-center mt-10" style={{width:'100%'}}>
+
+        {/* --- 进入创作空间按钮 --- */}
+        <div className="flex justify-center mt-8">
           <button
-            className="w-full max-w-4xl px-4 py-2 rounded-xl bg-gradient-to-r from-[#FF2D5C] to-[#FF5C8A] text-white text-lg font-bold shadow hover:scale-105 transition-all"
-            onClick={() => window.location.href = '/workspace'}
-          >
-            进入创作空间
+            onClick={handleGoToWorkspace}
+            className="w-full max-w-7xl px-4 py-3 rounded-xl bg-gray-800 text-white text-lg font-bold shadow-lg hover:bg-black hover:scale-[1.01] transition-all">
+            ✅ 素材准备就绪，开启AI创作之旅 →
           </button>
         </div>
-        {/* 背景色优化 */}
-        <style>{`body { background: #f7f8fa; }`}</style>
       </main>
     </div>
   )

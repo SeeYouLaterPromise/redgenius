@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useWorkflowStore } from '../../store/workflowStore'
+import { fetchHotspots } from '../../services/contentService' // <--- 1. 导入真实的API调用函数
 
 // 模拟API调用的函数保持不变
 const fetchHotspotsFromAI = (text: string): Promise<string[]> => {
@@ -26,29 +27,35 @@ function Step1_HotspotExtraction() {
     useWorkflowStore()
   const [isLoading, setIsLoading] = useState(false)
 
-  // 跳转到dashboardpage
-  const handleBack = () => {
-    window.location.href = '/dashboard';
-  }
-
+  // 2. 修改按钮的点击处理函数
   const handleGenerate = async () => {
     setIsLoading(true)
-    const generatedHotspots = await fetchHotspotsFromAI(sourceText)
-    setHotspots(generatedHotspots)
-    setIsLoading(false)
+    try {
+      // 3. 调用真实的后端API
+      const response = await fetchHotspots(sourceText)
+      // 4. 将后端返回的爆点数组更新到我们的全局状态中
+      setHotspots(response.hotspots)
+    } catch (error) {
+      // apiService中统一的错误处理器会处理错误提示
+      // 我们在这里只需要捕获异常，防止程序崩溃
+      console.error('提炼爆点失败:', error)
+      alert(`提炼失败: ${error}`) // 可以给用户一个额外的提示
+    } finally {
+      // 5. 无论成功还是失败，最后都要结束加载状态
+      setIsLoading(false)
+    }
   }
 
   return (
     <div>
       {/* 顶部返回按钮 */}
-      <div className="mb-3">
+      {/* <div className="mb-3">
         <button
           className="px-5 py-2 rounded-full bg-gradient-to-r from-[#FF2D5C] to-[#FF5C8A] text-white font-bold shadow hover:scale-105 transition-all"
-          onClick={handleBack}
-        >
+          onClick={handleBack}>
           返回提交台
         </button>
-      </div>
+      </div> */}
       {/* 主体内容 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-6">
         {/* 左侧：原文素材，增加背景色和内边距 */}
@@ -57,11 +64,11 @@ function Step1_HotspotExtraction() {
             原文素材
           </h3>
           <div className="prose prose-sm max-w-none max-h-[60vh] overflow-y-auto text-gray-700">
-            <h4>为什么现在的年轻人都爱上了"新中式"穿搭？</h4>
+            {/* <h4>为什么现在的年轻人都爱上了"新中式"穿搭？</h4> */}
             <p>{sourceText}</p>
-            <p>
+            {/* <p>
               近年来，一股"新中式"美学风潮席卷了整个时尚圈。从明星红毯到日常街拍，随处可见将传统元素与现代剪裁巧妙融合的服饰。它不再是过去那种刻板、老气的印象，而是转化为一种更符合现代审美的、充满文化自信的表达方式。
-            </p>
+            </p> */}
           </div>
         </div>
         {/* 右侧：AI提炼的爆点 */}

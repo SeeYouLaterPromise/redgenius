@@ -16,12 +16,26 @@ export interface Note {
   imageUrls: string[] // <--- 新增：存放为本篇笔记生成的图片URL
 }
 
+// --- 新增：定义Dashboard页面的状态 ---
+interface DashboardState {
+  importedContent: string
+  chatResult: string
+  summary: string
+  urlCrawlResult: string // <--- 新增：用于存放URL爬取结果
+  urlLoading: boolean // <--- 新增：用于控制URL导入按钮的加载状态
+  //... 您可以把所有需要持久化的状态都放在这里
+}
+
 // 定义工作流中所有需要管理的数据类型
 interface WorkflowState {
   currentStep: number
   sourceText: string
   hotspots: Hotspot[] // <-- 类型从 string[] 变为 Hotspot[]
   notes: Note[]
+  dashboardState: DashboardState // <-- 将Dashboard的状态作为一个整体对象来管理
+
+  updateDashboardState: (newState: Partial<DashboardState>) => void // <-- 新增：更新Dashboard状态的方法
+  resetDashboardState: () => void // <-- 新增：用于开始一次新创作时重置状态
 
   setSourceText: (text: string) => void
   setHotspots: (spots: string[]) => void
@@ -34,6 +48,14 @@ interface WorkflowState {
   goToStep: (step: number) => void
 }
 
+const initialDashboardState: DashboardState = {
+  importedContent: '',
+  chatResult: '',
+  summary: '',
+  urlCrawlResult: '', // <--- 新增
+  urlLoading: false, // <--- 新增
+}
+
 // 使用 zustand 创建 store
 export const useWorkflowStore = create<WorkflowState>((set) => ({
   // 初始状态
@@ -41,9 +63,17 @@ export const useWorkflowStore = create<WorkflowState>((set) => ({
   sourceText: '这里是用户从Dashboard页面传过来的原始素材...',
   hotspots: [],
   notes: [], // <--- 新增
+  dashboardState: initialDashboardState, // <-- 初始化
 
   // 实现 Actions
   setSourceText: (text) => set({ sourceText: text }),
+  updateDashboardState: (newState) =>
+    set((state) => ({
+      dashboardState: { ...state.dashboardState, ...newState },
+    })),
+  resetDashboardState: () =>
+    set({ dashboardState: initialDashboardState, sourceText: '' }),
+
   // 当设置爆点时，我们自动初始化笔记数组
   setHotspots: (spots) =>
     set({

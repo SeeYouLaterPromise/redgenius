@@ -17,10 +17,20 @@ from typing import List
 import shutil
 import os
 import uuid
+from fastapi.middleware.cors import CORSMiddleware
 
 
 
 app = FastAPI()
+
+# 添加 CORS 支持
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 你也可以改成 ["http://localhost:3000"] 这样更安全
+    allow_credentials=True,
+    allow_methods=["*"],  # 允许所有方法，包括 OPTIONS
+    allow_headers=["*"],  # 允许所有 headers
+)
 
 @app.post("/login")
 def get_xhs_cookies():
@@ -115,6 +125,7 @@ async def api_fetch_url(request: URLRequest):
 async def api_summary_content(request: SummaryRequest):
     res = await summary_content(request.content1, request.content2)
     return res
+
 @app.post("/extract-hotspot")
 async def api_extract_hotspot(request: ExtractRequest):
     result = await extract_hotspot(request.content)
@@ -123,4 +134,4 @@ async def api_extract_hotspot(request: ExtractRequest):
 @app.post("/xhs-content-generator")
 async def api_xhs_content_generator(request: ContentGenRequest):
     result = await xhs_content_generator(request.hotspots)
-    return {"result": result}
+    return result
