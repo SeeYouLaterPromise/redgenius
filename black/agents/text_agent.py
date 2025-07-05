@@ -1,9 +1,9 @@
 import asyncio
 from mcp_agent.agents.agent import Agent
 from mcp_agent.app import MCPApp
-from deepseek_llm import DeepSeekAugmentedLLM 
-from setting import settings 
-from utils import load_prompt_from_txt
+from black.agents.deepseek_llm import DeepSeekAugmentedLLM
+from black.agents.setting import settings 
+from black.agents.utils import load_from_txt
 import re
 import os
 

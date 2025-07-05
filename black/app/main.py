@@ -7,7 +7,7 @@ from fastapi import UploadFile, File, Form
 from pydantic import BaseModel
 from typing import List
 
-from agents.text_agent import (
+from black.agents.text_agent import (
     fetch_url,
     summary_content,
     extract_hotspot,
