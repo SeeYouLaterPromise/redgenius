@@ -18,6 +18,8 @@ import shutil
 import os
 import uuid
 
+
+
 app = FastAPI()
 
 @app.post("/login")
@@ -106,14 +108,13 @@ class ContentGenRequest(BaseModel):
 
 @app.post("/fetch-url")
 async def api_fetch_url(request: URLRequest):
-    await fetch_url(request.url)
-    return {"message": "✅ 已完成 fetch_url（控制台打印内容）"}
+    res = await fetch_url(request.url)
+    return res
 
 @app.post("/summary-content")
 async def api_summary_content(request: SummaryRequest):
-    await summary_content(request.content1, request.content2)
-    return {"message": "✅ 已完成 summary_content（控制台打印内容）"}
-
+    res = await summary_content(request.content1, request.content2)
+    return res
 @app.post("/extract-hotspot")
 async def api_extract_hotspot(request: ExtractRequest):
     result = await extract_hotspot(request.content)

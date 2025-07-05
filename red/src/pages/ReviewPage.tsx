@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useWorkflowStore } from '../store/workflowStore'
+import { useState } from 'react'
+import { publishToXHSJson } from '../apiService'
 
 function ReviewPage() {
   // 从URL中获取笔记的ID，例如 /review/0 -> noteId为'0'
@@ -9,6 +11,10 @@ function ReviewPage() {
   // 根据ID找到对应的笔记，注意类型转换
   const noteToReview = notes.find((n) => n.id === Number(noteId))
 
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
+
   if (!noteToReview) {
     return (
       <div className="p-8 text-center text-red-500">
@@ -17,10 +23,26 @@ function ReviewPage() {
     )
   }
 
-  const handlePublish = () => {
-    console.log('准备发布以下笔记到小红书:', noteToReview)
-    alert('发布请求已发送！(这是模拟操作，请在浏览器控制台查看详情)')
-    // 在真实项目中，这里会调用apiService来向后端发送发布请求
+  const handlePublish = async () => {
+    setLoading(true)
+    setError(null)
+    setSuccess(false)
+    try {
+      await publishToXHSJson({
+        title: noteToReview.title,
+        content: noteToReview.content,
+        topics: Array.isArray(noteToReview.hashtags)
+          ? noteToReview.hashtags
+          : (noteToReview.hashtags || '').split(/[#,，\s]+/).filter(Boolean),
+        images: noteToReview.imageUrls,
+        location: '',
+      })
+      setSuccess(true)
+    } catch (err: any) {
+      setError(err.message || '发布失败')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -41,6 +63,7 @@ function ReviewPage() {
                 type="text"
                 defaultValue={noteToReview.title}
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-lg"
+                readOnly
               />
             </div>
             <div>
@@ -51,6 +74,7 @@ function ReviewPage() {
                 rows={18}
                 defaultValue={noteToReview.content}
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-4 leading-relaxed text-base"
+                readOnly
               />
             </div>
             <div>
@@ -61,6 +85,7 @@ function ReviewPage() {
                 type="text"
                 defaultValue={noteToReview.hashtags}
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                readOnly
               />
             </div>
           </div>
@@ -84,22 +109,30 @@ function ReviewPage() {
             </div>
             <div className="bg-white p-6 rounded-lg shadow">
               <h4 className="text-lg font-semibold mb-4">发布操作</h4>
+              {error && <div className="text-red-500 mb-2">{error}</div>}
+              {success && <div className="text-green-500 mb-2">发布成功！</div>}
               <button
                 onClick={handlePublish}
-                className="w-full bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600 flex items-center justify-center text-lg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                </svg>
-                立即发布到小红书
+                className="w-full bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600 flex items-center justify-center text-lg"
+                disabled={loading}
+              >
+                {loading ? '发布中...' : (
+                  <>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                    </svg>
+                    立即发布到小红书
+                  </>
+                )}
               </button>
             </div>
           </div>

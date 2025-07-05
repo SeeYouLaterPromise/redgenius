@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react';
+import { fetchUrlContent, fetchSummaryContent } from '../apiService';
 
 // 我们可以将Header保持为页面内部组件，因为它只在这里使用
 function Header() {
@@ -67,6 +68,9 @@ function DashboardPage() {
   const [chatResult, setChatResult] = useState(''); // AI返回内容
   const [selectedTopic, setSelectedTopic] = useState(''); // 当前选中的热点选题
   const [summary, setSummary] = useState(''); // 汇总内容
+  const [urlCrawlResult, setUrlCrawlResult] = useState(''); // 新增：URL爬取结果展示框
+  const [urlLoading, setUrlLoading] = useState(false);
+  const [summaryLoading, setSummaryLoading] = useState(false);
   type Topic = {
     id: string | number;
     category: string;
@@ -105,12 +109,21 @@ function DashboardPage() {
   };
 
   // 汇总按钮点击
-  const handleSummary = () => {
-    const parts = [];
-    if (selectedTopic) parts.push(`【热点选题】${selectedTopic}`);
-    if (importedContent) parts.push(`【导入素材】${importedContent}`);
-    if (chatResult) parts.push(`【AI结果】${chatResult}`);
-    setSummary(parts.length ? parts.join('\n\n') : '暂无可汇总内容');
+  const handleSummary = async () => {
+    if (!importedContent.trim() && !chatResult.trim()) {
+      setSummary('暂无可汇总内容');
+      return;
+    }
+    setSummaryLoading(true);
+    setSummary('');
+    try {
+      const res = await fetchSummaryContent(importedContent, chatResult);
+      setSummary(res.summary || '未生成汇总');
+    } catch (e: any) {
+      setSummary('汇总失败: ' + (e.message || '未知错误'));
+    } finally {
+      setSummaryLoading(false);
+    }
   };
 
   // 新增自定义热点
@@ -124,6 +137,21 @@ function DashboardPage() {
         source: '自定义',
         color: 'bg-purple-100 text-purple-600',
       });
+    }
+  };
+
+  // 新增：URL导入按钮事件
+  const handleImportUrl = async () => {
+    if (!importedContent.trim()) return;
+    setUrlLoading(true);
+    setUrlCrawlResult('');
+    try {
+      const res = await fetchUrlContent(importedContent.trim());
+      setUrlCrawlResult(res.summary || '未提取到内容');
+    } catch (e: any) {
+      setUrlCrawlResult('提取失败: ' + (e.message || '未知错误'));
+    } finally {
+      setUrlLoading(false);
     }
   };
 
@@ -266,22 +294,21 @@ function DashboardPage() {
                   />
                   <button
                     className="cursor-pointer inline-flex items-center px-4 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100 text-sm"
-                    onClick={() => setImportedContent(importedContent)}
+                    onClick={handleImportUrl}
+                    disabled={urlLoading}
                   >
-                    导入
+                    {urlLoading ? '导入中...' : '导入'}
                   </button>
                 </div>
               </div>
+              {/* 新增：URL爬取结果展示框 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  或上传本地文档
-                </label>
-                <input
-                  type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 focus:ring-red-500 focus:border-red-500"
-                  placeholder="粘贴文档内容或描述..."
-                  value={importedContent}
-                  onChange={e => setImportedContent(e.target.value)}
+                <label className="block text-sm font-medium text-gray-700 mb-1">URL内容智能提取结果</label>
+                <textarea
+                  className="w-full min-h-[200px] h-[280px] max-w-full border border-gray-200 rounded-xl bg-gray-50 p-2 text-gray-700 focus:ring-2 focus:ring-red-100 focus:border-red-300 transition resize-none"
+                  placeholder="这里将展示大模型爬取URL后的内容..."
+                  value={urlCrawlResult}
+                  readOnly
                 />
               </div>
             </div>
@@ -305,8 +332,9 @@ function DashboardPage() {
               <button
                 className="mb-2 px-6 py-1.5 rounded-full bg-gradient-to-r from-[#FF2D5C] to-[#FF5C8A] text-white text-base font-bold shadow hover:scale-105 transition-all mx-auto"
                 onClick={handleSummary}
+                disabled={summaryLoading}
               >
-                汇总
+                {summaryLoading ? '汇总中...' : '汇总'}
               </button>
               <textarea
                 className="w-full min-h-[140px] h-[160px] border border-gray-200 rounded-xl bg-gray-50 p-4 text-lg text-gray-700 focus:ring-2 focus:ring-red-100 focus:border-red-300 transition resize-none"
