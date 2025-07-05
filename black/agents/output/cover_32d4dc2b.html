@@ -1,0 +1,94 @@
+<html>
+<head>
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+  }
+  #canvas {
+    width: 600px;
+    height: 800px;
+    background: linear-gradient(135deg, #fff9f9 0%, #f0f7ff 100%);
+    border-radius: 16px;
+    padding: 40px;
+    box-sizing: border-box;
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .title {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 30px;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+  .highlight {
+    background: linear-gradient(90deg, #FFD6E0 0%, #C1F0FF 100%);
+    padding: 0 12px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+  .card {
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .card-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #444;
+  }
+  .card-content {
+    font-size: 24px;
+    line-height: 1.4;
+    color: #666;
+  }
+  .emoji {
+    font-size: 36px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .decoration {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,214,224,0.3) 0%, rgba(193,240,255,0.3) 100%);
+    right: -50px;
+    top: -50px;
+    z-index: 0;
+  }
+</style>
+</head>
+<body>
+<div id="canvas">
+  <div class="decoration"></div>
+  <div class="title">
+    <span class="highlight">高效产出</span> × <span class="highlight">美食治愈</span>
+  </div>
+  
+  <div class="card">
+    <div class="card-title">🌟 小确幸哲学</div>
+    <div class="card-content">工作与生活的完美平衡，在高效中享受美食带来的治愈时刻</div>
+  </div>
+  
+  <div class="card">
+    <div class="card-title">🧠 高效秘诀</div>
+    <div class="card-content">专注工作3小时，用美食奖励自己，效率提升50%</div>
+  </div>
+  
+  <div class="card">
+    <div class="card-title">🍰 治愈法则</div>
+    <div class="card-content">一块蛋糕+一杯咖啡=充电15分钟，活力一整天</div>
+  </div>
+</div>
+</body>
+</html>

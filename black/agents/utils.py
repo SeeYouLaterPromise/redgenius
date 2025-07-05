@@ -55,16 +55,53 @@ def clean_html_response(result: str) -> str:
 
 
 
-def load_prompt_from_txt(filepath: str) -> str:
+def load_from_txt(filepath: str) -> str:
     """
-    从指定的 .txt 文件中读取完整提示词文本。
+    从指定的 .txt 文件中读取文本。
     """
     if not os.path.exists(filepath):
-        raise FileNotFoundError(f"找不到提示词文件: {filepath}")
+        raise FileNotFoundError(f"找不到文件: {filepath}")
     
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read().strip()
     return content
+
+
+import os
+
+def save_to_txt(content: str,
+                       filepath: str,
+                       mode: str = "w",
+                       encoding: str = "utf-8") -> None:
+    """
+    将字符串内容写入指定的 .txt 文件。
+    
+    Parameters
+    ----------
+    content : str
+        需要写入文件的文本内容。
+    filepath : str
+        目标文件路径（含文件名）。
+    mode : {"w", "a"}, default "w"
+        写入模式：
+        - "w"  覆盖写入（如文件已存在会被覆盖）。
+        - "a"  追加写入（内容追加到文件末尾）。
+    encoding : str, default "utf-8"
+        文件编码方式。
+    """
+    # 检查写入模式合法性
+    if mode not in {"w", "a"}:
+        raise ValueError(f"不支持的 mode: {mode}，只允许 'w' 或 'a'。")
+    
+    # 如果目录不存在则创建
+    dir_path = os.path.dirname(os.path.abspath(filepath))
+    if dir_path and not os.path.exists(dir_path):
+        os.makedirs(dir_path, exist_ok=True)
+    
+    # 写入文件
+    with open(filepath, mode, encoding=encoding) as f:
+        f.write(content if content.endswith("\n") else content + "\n")
+
 
 
 

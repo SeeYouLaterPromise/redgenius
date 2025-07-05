@@ -1,17 +1,28 @@
 import asyncio
 import os
+import uuid
 from mcp_agent.app import MCPApp
 from mcp_agent.agents.agent import Agent
 from deepseek_llm import DeepSeekAugmentedLLM
 from setting import settings
-from utils import load_prompt_from_txt, save_html_and_screenshot, clean_html_response
+from utils import load_from_txt, save_to_txt, save_html_and_screenshot, clean_html_response
 
 
-async def generate_html_cover(content: str, save_path="output/card.html"):
+async def generate_html_cover(content: str, save_path="output/"):
     app = MCPApp("html_cover_generator", settings=settings)
 
-    prompt_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "prompt/xhs_card.txt"))
-    prompt_instruction = load_prompt_from_txt(prompt_path)
+    cur_directory = os.path.dirname(os.path.abspath(__file__))
+    save_dir = os.path.abspath(os.path.join(cur_directory, save_path))
+    os.makedirs(save_dir, exist_ok=True)
+
+    prompt_path = os.path.abspath(os.path.join(cur_directory, "prompt/xhs_card.txt"))
+    prompt_instruction = load_from_txt(prompt_path)
+
+    # ⬇️ 生成唯一ID用于命名
+    unique_id = uuid.uuid4().hex[:8]  # 可使用 [:8] 保留前8位
+    picture_name = f"cover_{unique_id}.png"
+    html_name = f"cover_{unique_id}.html"
+    html_path = os.path.join(save_dir, html_name)
 
     async with app.run():
         finder_agent = Agent(
@@ -28,23 +39,20 @@ async def generate_html_cover(content: str, save_path="output/card.html"):
             )
 
             result = await llm.generate_str(message=message)
-            # ✅ 打印结果
             print("📦 生成的 HTML 封面：\n")
             print(result)
 
             cleaned_html = clean_html_response(result)
-            await save_html_and_screenshot(cleaned_html, save_path)
 
-            # ✅ 保存为 HTML 文件
-            # os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            # with open(save_path, "w", encoding="utf-8") as f:
-            #     f.write(result)
-            # print(f"✅ 已保存到：{save_path}")
+            # ⬇️ 截图保存路径（保存为 PNG 图）
+            await save_html_and_screenshot(cleaned_html, save_dir, picture_name)
+
+            # ⬇️ 保存 HTML 文件
+            save_to_txt(cleaned_html, html_path)
 
             return result
 
 
-
 if __name__ == "__main__":
-    content="⚖️ 理想生活公式：代码效率+美食治愈=完美平衡。白天高效敲代码，晚上用襄阳牛肉面治愈灵魂，这才是科技民工的正确打开方式！"
+    content = "🌟 小确幸哲学：高效产出和美食治愈，我全都要！"
     asyncio.run(generate_html_cover(content))
